@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "850546437827",
+    "project_id": "firetrip-4c3cb",
+    "storage_bucket": "firetrip-4c3cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850546437827:android:7d59b662a47f8f0b36fc76",
+        "android_client_info": {
+          "package_name": "com.example.firetrip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850546437827-592hda4sccof879i62muh5npin8lvu7c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8oC6JMyO_u8Di59EIecWJfEDDF5Sl5rw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850546437827-592hda4sccof879i62muh5npin8lvu7c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
