@@ -12,4 +12,12 @@ class LocationModel {
     this.locationLatitude,
     this.locationLongitude,
   });
+
+  LocationModel.fromJson(Map<String, dynamic> json) {
+    locationId = json['id'];
+    locationName = json['text'];
+    locationAddress = json['place_name'];
+    locationLatitude = json['center'][1];
+    locationLongitude = json['center'][0];
+  }
 }

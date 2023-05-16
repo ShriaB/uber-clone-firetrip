@@ -5,4 +5,5 @@ class RouteNames {
   static const String home = 'home_view';
   static const String splash = 'loading_view';
   static const String search = 'search_view';
+  static const String navigation = 'nav_view';
 }

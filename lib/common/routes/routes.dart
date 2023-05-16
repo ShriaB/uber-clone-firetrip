@@ -2,8 +2,9 @@ import 'package:firetrip/feature_home/views/home_view.dart';
 import 'package:firetrip/feature_login/views/login_view.dart';
 import 'package:firetrip/feature_login/views/register_view.dart';
 import 'package:firetrip/common/routes/route_names.dart';
-import 'package:firetrip/feature_search/views/search_places_view.dart';
+import 'package:firetrip/feature_home/views/search_places_view.dart';
 import 'package:firetrip/feature_splash/views/splash_screen.dart';
+import 'package:firetrip/feature_trip/view/turn_by_turn_navigation.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -26,6 +27,9 @@ class Routes {
       case RouteNames.search:
         return MaterialPageRoute(
             builder: (BuildContext context) => const SearchPlacesView());
+      case RouteNames.navigation:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const TurnByTurnNavigation());
       default:
         {
           return MaterialPageRoute(builder: (_) {

@@ -52,8 +52,7 @@ class LocationServices {
         desiredAccuracy: LocationAccuracy.bestForNavigation);
   }
 
-  Future<String> getUserAddressFromPosition(LatLng location) async {
-    String address = "Address could not be fetched";
+  Future<LocationModel?> getUserAddressFromPosition(LatLng location) async {
     try {
       List<Placemark> placemarks =
           await placemarkFromCoordinates(location.latitude, location.longitude);
@@ -62,18 +61,14 @@ class LocationServices {
       LocationModel userLocationInfo = LocationModel();
       userLocationInfo.locationLatitude = location.latitude;
       userLocationInfo.locationLongitude = location.longitude;
-      userLocationInfo.locationName =
+      userLocationInfo.locationName = placemark.subLocality;
+      userLocationInfo.locationAddress =
           "${placemark.street} ${placemark.subLocality} ${placemark.locality} ${placemark.postalCode}";
-      address = userLocationInfo.locationName ?? "Address could not be fetched";
-      print(address);
       print(userLocationInfo.locationName);
-      ref
-          .read(tripStateNotifierProvider.notifier)
-          .updatePickupLocationAddress(userLocationInfo);
+      return userLocationInfo;
     } catch (e) {
       print(e);
     }
-    return address;
   }
 }
 

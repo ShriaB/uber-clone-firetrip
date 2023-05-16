@@ -7,5 +7,5 @@ class UserMapLocInfo {
 
   static const String mapBoxStyleId = 'mapbox.mapbox-streets-v8';
 
-  static LatLng? userLocation = LatLng(22.5726, 88.3639);
+  static LatLng userLocation = LatLng(22.5726, 88.3639);
 }
