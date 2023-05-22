@@ -121,7 +121,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
             dropLoc.locationLatitude ?? UserMapLocInfo.userLocation.latitude,
             dropLoc.locationLongitude ?? UserMapLocInfo.userLocation.longitude);
       });
-      drawRouteBetweenSourceAndDestination();
+      // drawRouteBetweenSourceAndDestination();
     }
   }
 
@@ -150,15 +150,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
     }
   }
 
-  String metersToKm(double meters) {
-    return (meters / 1000).toStringAsFixed(2);
-  }
-
-  String getDropOffTime(double seconds) {
-    var dropTime = DateTime.now().add(Duration(seconds: seconds.ceil()));
-    return DateFormat.jm().format(dropTime);
-  }
-
   @override
   void initState() {
     _locationService = ref.read(locationServiceProvider);
@@ -176,8 +167,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(children: [
+    return Stack(children: [
       /// Mapbox Map
       FlutterMap(
         mapController: _mapController,
@@ -266,23 +256,72 @@ class _HomeViewState extends ConsumerState<HomeView> {
         ),
 
       /// Pickup and Dropoff Location card
-      if (!_pickupConfirmed || !_dropoffConfirmed)
-        Positioned(
-            top: 60,
-            right: 20,
-            left: 20,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    /// Pickup section
-                    Row(
+      Positioned(
+          top: 60,
+          right: 20,
+          left: 20,
+          child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  /// Pickup section
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: primaryColor,
+                        size: 35.0,
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "From",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            Text(
+                              _pickupLocation != null
+                                  ? "${_pickupLocation?.locationName}, ${_pickupLocation?.locationAddress}"
+                                  : "Select pick up location",
+                              overflow: TextOverflow.visible,
+                              softWrap: true,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  height: 1.5,
+                                  color: Colors.grey[700]),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    height: 20.0,
+                    thickness: 2,
+                    color: primaryColor,
+                  ),
+
+                  /// Dropoff Section
+                  GestureDetector(
+                    onTap: () => setDropOffLocation(),
+                    child: Row(
                       children: [
                         const Icon(
-                          Icons.location_on,
+                          Icons.navigation_rounded,
                           color: primaryColor,
                           size: 35.0,
                         ),
@@ -295,7 +334,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                "From",
+                                "To",
                                 style: TextStyle(
                                     fontSize: 18,
                                     color: primaryColor,
@@ -305,9 +344,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                 height: 5.0,
                               ),
                               Text(
-                                _pickupLocation != null
-                                    ? "${_pickupLocation?.locationName}, ${_pickupLocation?.locationAddress}"
-                                    : "Select pick up location",
+                                _dropoffLocation != null
+                                    ? "${_dropoffLocation?.locationName}, ${_dropoffLocation?.locationAddress}"
+                                    : "Where to?",
                                 overflow: TextOverflow.visible,
                                 softWrap: true,
                                 style: TextStyle(
@@ -320,176 +359,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         ),
                       ],
                     ),
-                    const Divider(
-                      height: 20.0,
-                      thickness: 2,
-                      color: primaryColor,
-                    ),
-
-                    /// Dropoff Section
-                    GestureDetector(
-                      onTap: () => setDropOffLocation(),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.navigation_rounded,
-                            color: primaryColor,
-                            size: 35.0,
-                          ),
-                          const SizedBox(
-                            width: 10.0,
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "To",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: primaryColor,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(
-                                  height: 5.0,
-                                ),
-                                Text(
-                                  _dropoffLocation != null
-                                      ? "${_dropoffLocation?.locationName}, ${_dropoffLocation?.locationAddress}"
-                                      : "Where to?",
-                                  overflow: TextOverflow.visible,
-                                  softWrap: true,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      height: 1.5,
-                                      color: Colors.grey[700]),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            )),
-      if (!_pickupConfirmed)
-        Positioned(
-            right: 0,
-            left: 0,
-            bottom: 0,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
-              child: ElevatedButton(
-                style: textButtonStyle,
-                onPressed: () {
-                  setState(() {
-                    _pickupConfirmed = !_pickupConfirmed;
-                  });
-                },
-                child: const Text(
-                  "Confirm Pick Up",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            )),
-
-      if (_pickupConfirmed && _dropoffConfirmed)
-        Positioned(
-            right: 10,
-            left: 10,
-            bottom: 5,
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "${_pickupLocation?.locationName}",
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        const Icon(
-                          Icons.arrow_right_alt,
-                          color: primaryColor,
-                          size: 40,
-                        ),
-                        Text(
-                          "${_dropoffLocation?.locationName}",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      color: Colors.grey[100],
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset(
-                              "assets/images/car.png",
-                              height: 50,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "FireTrip Prime",
-                                  style: TextStyle(
-                                      color: blackColor,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                    "${metersToKm(distance)} Km, ${getDropOffTime(duration)}"),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              "₹340.0",
-                              style: TextStyle(
-                                  color: blackColor,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ElevatedButton(
-                      style: textButtonStyle,
-                      onPressed: () {
-                        Navigator.pushNamed(context, RouteNames.navigation);
-                      },
-                      child: const Text(
-                        "Start you ride",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ))
-    ]));
+            ),
+          )),
+    ]);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:firetrip/feature_home/models/location_model.dart';
 import 'package:firetrip/feature_trip/view_models/trip_view_model.dart';
-import 'package:flutter_mapbox_navigation/flutter_mapbox_navigation.dart';
+import 'package:flutter_mapbox/flutter_mapbox.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
@@ -48,11 +48,6 @@ class _TurnByTurnNavigationState extends ConsumerState<TurnByTurnNavigation> {
       return;
     }
 
-    navigation = MapBoxNavigation.instance;
-    // _controller = MapBoxNavigationViewController(id, (value) { })
-    navigation.registerRouteEventListener((value) {
-      onRouteEvent(value);
-    });
     _options = MapBoxOptions(
       zoom: 18.0,
       bannerInstructionsEnabled: true,
@@ -63,15 +58,19 @@ class _TurnByTurnNavigationState extends ConsumerState<TurnByTurnNavigation> {
       simulateRoute: true,
       language: 'en',
     );
-    getWayPoints();
-    print("Start of navigation");
-    await navigation.startNavigation(wayPoints: wayPoints, options: _options);
+    // navigation = MapBoxNavigation.instance;
+    // MapBoxNavigation.instance.setDefaultOptions(_options);
+    // MapBoxNavigation.instance.registerRouteEventListener(onRouteEvent);
+
+    // getWayPoints();
+    // print("Start of navigation");
+    // MapBoxNavigation.instance.startNavigation(wayPoints: wayPoints);
     // print("End of navigation");
   }
 
   Future<void> onRouteEvent(RouteEvent e) async {
-    remainingDistance = await navigation.getDistanceRemaining();
-    remainingDuration = await navigation.getDurationRemaining();
+    // remainingDistance = await navigation.getDistanceRemaining();
+    // remainingDuration = await navigation.getDurationRemaining();
 
     switch (e.eventType) {
       case MapBoxEvent.progress_change:
@@ -128,18 +127,9 @@ class _TurnByTurnNavigationState extends ConsumerState<TurnByTurnNavigation> {
   Widget build(BuildContext context) {
     print("in build of navigation");
     // initialise();
-    return Scaffold(
-      body: Container(
-        color: Colors.grey,
-        child: MapBoxNavigationView(
-            options: _options,
-            onRouteEvent: onRouteEvent,
-            onCreated: (MapBoxNavigationViewController controller) async {
-              _controller = controller;
-              _controller.buildRoute(wayPoints: wayPoints);
-              _controller.startNavigation();
-            }),
-      ),
-    );
+    return const Scaffold(
+        body: Center(
+      child: Text("Arrived"),
+    ));
   }
 }

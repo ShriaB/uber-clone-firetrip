@@ -5,10 +5,17 @@ import 'package:firetrip/common/model/user_model.dart';
 class UserSessionService {
   static Future<void> getCurrentOnlineUser() async {
     currentUser = firebaseAuth.currentUser;
-    DatabaseReference userRef =
-        FirebaseDatabase.instance.ref().child("users").child(currentUser!.uid);
-
-    userRef.once().then(
-        (snap) => currentUserInfo = UserModel.fromSnapshot(snap.snapshot));
+    if (currentUser != null) {
+      DatabaseReference ref = FirebaseDatabase.instance
+          .ref()
+          .child("users")
+          .child(currentUser!.uid);
+      final snap = await ref.get();
+      if (snap.exists) {
+        currentUserInfo = UserModel.fromSnapshot(snap);
+      } else {
+        print('No data available.');
+      }
+    }
   }
 }

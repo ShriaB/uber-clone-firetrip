@@ -29,6 +29,7 @@ Future<Map> getDirectionsAPIResponse(
           .toList();
   num duration = response['routes'][0]['duration'];
   num distance = response['routes'][0]['distance'];
+  print(" in API $distance, $duration");
   Map routeResponse = {
     "points": points,
     "duration": duration,

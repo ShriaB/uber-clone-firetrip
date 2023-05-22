@@ -30,7 +30,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
         "email": _emailController.text.trim(),
         "password": _passwordController.text.trim()
       };
-
+      print("inside if creadentials valid");
       ref.read(firebaseAuthServiceProvider).login(userInfo).then((value) {
         Utils.showGreenSnackBar(context, "You are successfully logged in");
         Navigator.pushReplacementNamed(context, RouteNames.home);
@@ -121,6 +121,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       ElevatedButton.icon(
                           style: textButtonStyle,
                           onPressed: () {
+                            print("login button pressed");
                             login();
                           },
                           icon: const Icon(

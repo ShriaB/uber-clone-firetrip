@@ -6,4 +6,5 @@ class RouteNames {
   static const String splash = 'loading_view';
   static const String search = 'search_view';
   static const String navigation = 'nav_view';
+  static const String reviewRoute = 'review_route';
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firetrip/common/auth/auth.dart';
+import 'package:firetrip/feature_splash/service/user_session_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FirebaseAuthService {
@@ -26,14 +27,15 @@ class FirebaseAuthService {
   }
 
   Future<void> login(Map userInfo) async {
+    print("In login");
     try {
-      firebaseAuth
-          .signInWithEmailAndPassword(
-              email: userInfo["email"], password: userInfo["password"])
-          .then((auth) {
-        currentUser = auth.user;
-      });
+      final auth = await firebaseAuth.signInWithEmailAndPassword(
+          email: userInfo["email"], password: userInfo["password"]);
+      currentUser = auth.user;
+      print(currentUser);
+      UserSessionService.getCurrentOnlineUser();
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
