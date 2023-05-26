@@ -47,11 +47,12 @@ dependencies:
   location: ^4.2.0
   geolocator: ^9.0.2
   geocoding: ^2.1.0
-  # flutter_mapbox_navigation: ^0.1.0
   flutter_mapbox: ^0.5.9
   flutter_dotenv: ^5.0.2
   http: ^0.13.6
   intl: ^0.18.1
+  flutter_rating_bar: ^4.0.1
+  flutter_native_splash: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -63,15 +64,14 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  flutter_launcher_icons: ^0.13.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/icons/logo-darkBG.jpg"
+# flutter_launcher_icons:
+#   android: "launcher_icon"
+#   ios: true
+#   image_path: "assets/icons/logo-darkBG.jpg"
 
 # The following section is specific to Flutter packages.
 flutter:

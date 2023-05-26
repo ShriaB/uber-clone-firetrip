@@ -24,7 +24,7 @@ allprojects {
                 // This should always be `mapbox` (not your username).
                   username = "mapbox"
                   // Use the secret token you stored in gradle.properties as the password
-                  password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+                  password = MAPBOX_DOWNLOADS_TOKEN
               }
           }
           configurations.all{
@@ -43,6 +43,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
