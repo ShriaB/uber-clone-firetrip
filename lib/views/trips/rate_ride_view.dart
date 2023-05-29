@@ -25,6 +25,10 @@ class _RateRideViewState extends ConsumerState<RateRideView> {
     super.initState();
   }
 
+  /// Create the Trip object
+  /// Call Firebase addTrip method to save the trip to Firebase
+  /// Get all the trips - Refreshed list
+  /// Reset the Tripstate to default so that a new trip can be started by the user
   void saveTrip() async {
     var trip = TripModel(
       source: viewModel.userPickUpLocation,
@@ -47,6 +51,7 @@ class _RateRideViewState extends ConsumerState<RateRideView> {
         padding: const EdgeInsets.fromLTRB(10, 200, 10, 10),
         child: Center(
           child: Column(children: [
+            /// Heading text
             const Text(
               "Rate your Ride",
               style: TextStyle(fontSize: 30),
@@ -54,6 +59,8 @@ class _RateRideViewState extends ConsumerState<RateRideView> {
             const SizedBox(
               height: 50,
             ),
+
+            /// Picture of Car
             CircleAvatar(
               radius: 50,
               backgroundColor: Colors.grey[200],
@@ -62,6 +69,8 @@ class _RateRideViewState extends ConsumerState<RateRideView> {
             const SizedBox(
               height: 20,
             ),
+
+            /// Car category
             const Text(
               "FireTrip Premium",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -69,6 +78,8 @@ class _RateRideViewState extends ConsumerState<RateRideView> {
             const SizedBox(
               height: 20,
             ),
+
+            /// Rating bar
             RatingBar.builder(
               initialRating: 0,
               minRating: 1,
@@ -87,6 +98,9 @@ class _RateRideViewState extends ConsumerState<RateRideView> {
             const SizedBox(
               height: 20,
             ),
+
+            /// Submit the rating
+            /// Calls saveTrip()
             ElevatedButton(
                 style: textButtonStyle,
                 onPressed: () {

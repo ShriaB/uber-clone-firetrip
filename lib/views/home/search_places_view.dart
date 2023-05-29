@@ -15,10 +15,15 @@ class SearchPlacesView extends ConsumerStatefulWidget {
 }
 
 class _SearchPlacesViewState extends ConsumerState<SearchPlacesView> {
+  /// List of suggested places
   List<LocationModel> predictedPlacesList = [];
+
+  /// Index of the selected location
   int selectedLocation = -1;
+
   TextEditingController searchController = TextEditingController();
   bool areLocationsAvailable = false;
+
   getAddressSuggestions(String address) async {
     setState(() {
       selectedLocation = -1;
@@ -42,16 +47,27 @@ class _SearchPlacesViewState extends ConsumerState<SearchPlacesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+        /// Done button
         floatingActionButton: FloatingActionButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           onPressed: () {
+            /// If user has not entered anything
+            /// Or user entered some random input
+            /// Promt user to enter valid location
             if (searchController.text.isEmpty ||
                 areLocationsAvailable == false) {
               Utils.showRedSnackBar(context, "Please enter a valid location");
-            } else if (selectedLocation == -1) {
+            }
+
+            /// If user has not selected any location then promt user to select a list item
+            else if (selectedLocation == -1) {
               Utils.showRedSnackBar(
                   context, "Please choose a place from the list ");
-            } else {
+            }
+
+            /// If locations are available and user has selected a valid location then go to review ride screen
+            else {
               Navigator.pushNamed(context, RouteNames.reviewRoute);
             }
           },
@@ -72,6 +88,7 @@ class _SearchPlacesViewState extends ConsumerState<SearchPlacesView> {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: Row(
                     children: [
+                      /// Back arrow for back navigation
                       GestureDetector(
                         child: const Icon(
                           Icons.arrow_back,
@@ -88,6 +105,8 @@ class _SearchPlacesViewState extends ConsumerState<SearchPlacesView> {
                       const SizedBox(
                         width: 10.0,
                       ),
+
+                      /// Textfield for entering location for searching
                       Expanded(
                         child: TextField(
                           controller: searchController,
@@ -119,6 +138,8 @@ class _SearchPlacesViewState extends ConsumerState<SearchPlacesView> {
             const SizedBox(
               height: 20,
             ),
+
+            /// List of suggested places
             Expanded(
                 child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),

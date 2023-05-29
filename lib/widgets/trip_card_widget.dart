@@ -1,4 +1,5 @@
 import 'package:firetrip/global/constants/colors.dart';
+import 'package:firetrip/global/utils/time_distance_convertors.dart';
 import 'package:firetrip/models/trip_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -14,20 +15,6 @@ class TripCardWidget extends StatefulWidget {
 }
 
 class _TripCardWidgetState extends State<TripCardWidget> {
-  String metersToKm(num meters) {
-    return (meters / 1000).toStringAsFixed(2);
-  }
-
-  String getDropOffTime(num seconds) {
-    var dropTime = DateTime.now().add(Duration(seconds: seconds.ceil()));
-    return DateFormat.jm().format(dropTime);
-  }
-
-  String? formatDate(DateTime? d) {
-    if (d == null) return null;
-    return ("${DateFormat('y MMM d').format(d)} ${DateFormat.jm().format(d)}");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,6 +28,7 @@ class _TripCardWidgetState extends State<TripCardWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  /// Source location name and address
                   Expanded(
                     flex: 1,
                     child: Column(
@@ -64,6 +52,8 @@ class _TripCardWidgetState extends State<TripCardWidget> {
                       ],
                     ),
                   ),
+
+                  /// Arrow icon
                   const Icon(
                     Icons.arrow_right_alt,
                     color: primaryColor,
@@ -72,6 +62,8 @@ class _TripCardWidgetState extends State<TripCardWidget> {
                   const SizedBox(
                     width: 5,
                   ),
+
+                  /// Destination location name and address
                   Expanded(
                     flex: 1,
                     child: Column(
@@ -100,6 +92,8 @@ class _TripCardWidgetState extends State<TripCardWidget> {
               const SizedBox(
                 height: 10,
               ),
+
+              /// Pickup date and time
               Row(
                 children: [
                   const Text("Pick up:"),
@@ -112,6 +106,8 @@ class _TripCardWidgetState extends State<TripCardWidget> {
               const SizedBox(
                 height: 10,
               ),
+
+              /// Dropoff date and time
               Row(
                 children: [
                   const Text("Drop off:"),
@@ -128,14 +124,19 @@ class _TripCardWidgetState extends State<TripCardWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  /// Distance covered in the trip
                   Text("${metersToKm(widget.trip?.distance ?? 0)} Km"),
                   const SizedBox(
                     width: 10,
                   ),
+
+                  /// Actual Duration of trip
                   Text(widget.trip?.duration ?? "0h"),
                   const SizedBox(
                     width: 10,
                   ),
+
+                  /// User rating for the trip
                   RatingBar.builder(
                     initialRating: widget.trip?.rideRating?.toDouble() ?? 0.0,
                     minRating: 1,

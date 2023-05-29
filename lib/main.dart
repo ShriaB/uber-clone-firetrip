@@ -7,10 +7,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
+  /// Loading .env file
   await dotenv.load(fileName: "assets/config/.env");
+
+  /// running the app
   runApp(const ProviderScope(child: MyApp()));
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  /// Preserving the splash screen
+  /// Splash screen removed after Firebase app has been initialised
+  /// And after checking if user is logged in or not
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  /// initalising firebase
   await Firebase.initializeApp();
 }
 

@@ -20,6 +20,7 @@ class _ProfileViewState extends State<ProfileView> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Center(
+            /// Profile picture
             child: CircleAvatar(
               backgroundImage: AssetImage("assets/images/avatar.png"),
               radius: 55.0,
@@ -29,6 +30,8 @@ class _ProfileViewState extends State<ProfileView> {
             height: 60.0,
             color: Colors.grey,
           ),
+
+          /// User Name
           const Text("NAME",
               style: TextStyle(
                   color: Colors.grey,
@@ -43,6 +46,8 @@ class _ProfileViewState extends State<ProfileView> {
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2.0)),
           const SizedBox(height: 30.0),
+
+          /// User Phone number
           const Text("PHONE NUMBER",
               style: TextStyle(
                   color: Colors.grey,
@@ -57,6 +62,8 @@ class _ProfileViewState extends State<ProfileView> {
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2.0)),
           const SizedBox(height: 30.0),
+
+          /// User email
           Row(
             children: [
               const Icon(Icons.mail, color: blackColor),
@@ -70,6 +77,8 @@ class _ProfileViewState extends State<ProfileView> {
             ],
           ),
           const SizedBox(height: 30.0),
+
+          /// User address
           Row(
             children: [
               const Icon(Icons.home_filled, color: blackColor),
@@ -83,6 +92,8 @@ class _ProfileViewState extends State<ProfileView> {
             ],
           ),
           const SizedBox(height: 30.0),
+
+          /// Sign out button
           ElevatedButton(
             style: textButtonStyle,
             onPressed: () {

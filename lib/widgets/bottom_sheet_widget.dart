@@ -37,15 +37,20 @@ class _BottomSheetWidgetState extends ConsumerState<BottomSheetWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              /// Source location Name
               Text(
                 "${widget.source.locationName}",
                 style: const TextStyle(fontSize: 18),
               ),
+
+              /// Arrow icon
               const Icon(
                 Icons.arrow_right_alt,
                 color: primaryColor,
                 size: 40,
               ),
+
+              /// Destination Location Name
               Text(
                 "${widget.destination.locationName}",
                 style: const TextStyle(fontSize: 18),
@@ -55,6 +60,9 @@ class _BottomSheetWidgetState extends ConsumerState<BottomSheetWidget> {
           const SizedBox(
             height: 10,
           ),
+
+          /// Displays the car category, price,
+          /// distance between the source and destination, expected dropoff time
           Container(
             color: Colors.grey[100],
             child: Padding(
@@ -103,6 +111,10 @@ class _BottomSheetWidgetState extends ConsumerState<BottomSheetWidget> {
           const SizedBox(
             height: 10,
           ),
+
+          /// Button to start the ride
+          /// Sets the pickup time with current time
+          /// Navigates to turn by turn navigation screen
           ElevatedButton(
             style: textButtonStyle,
             onPressed: () {

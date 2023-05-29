@@ -30,6 +30,11 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
 
   Future<void> register() async {
+    /// If all the fields have valid format
+    /// Prepare the data in a Map
+    /// Pass it to Firebase register
+    /// Display appropriate message for success and failure
+    /// If successful go to home screen
     if (_formKey.currentState!.validate()) {
       Map userInfo = {
         "name": _nameController.text.trim(),
@@ -45,7 +50,10 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
       }).catchError((error) {
         Utils.showRedSnackBar(context, "Some error occured: $error");
       });
-    } else {
+    }
+
+    /// If email and password do not match the required format then request to enter again
+    else {
       Utils.showRedSnackBar(context, "Please enter the required data.");
     }
   }
@@ -53,12 +61,14 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /// ListView to make it scrollable
       body: ListView(children: [
         Image.asset("assets/images/register_login.jpg"),
         Padding(
           padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10, 20.0),
           child: Column(
             children: [
+              /// Heading text
               const Text(
                 "Register",
                 style: TextStyle(
@@ -110,7 +120,6 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                       ),
 
                       /// Phone number field
-                      ///
                       IntlPhoneField(
                         controller: _phoneController,
                         decoration: const InputDecoration(
@@ -205,7 +214,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                         height: 20.0,
                       ),
 
-                      /// Signup Button
+                      /// Register Button
                       ElevatedButton.icon(
                           style: textButtonStyle,
                           onPressed: () {
@@ -225,6 +234,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                         height: 20.0,
                       ),
 
+                      /// If user already has an account prompt user to login
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

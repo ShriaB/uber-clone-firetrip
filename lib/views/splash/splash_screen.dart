@@ -22,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         /// Get User info from database
         await UserSessionService.getCurrentOnlineUser();
         if (context.mounted) {
+          /// Remove splash screen and navigate to home screen
           FlutterNativeSplash.remove();
           Navigator.pushReplacementNamed(context, RouteNames.home);
         }
@@ -29,6 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
         /// User is not logged in
         if (context.mounted) {
           FlutterNativeSplash.remove();
+
+          /// Remove splash screen and navigate to login screen
           Navigator.pushReplacementNamed(context, RouteNames.login);
         }
       }
@@ -44,11 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-        backgroundColor: whiteColor,
-        body: Center(
-            child: Text(
-          "hello",
-          style: TextStyle(color: whiteColor),
-        )));
+      backgroundColor: whiteColor,
+    );
   }
 }

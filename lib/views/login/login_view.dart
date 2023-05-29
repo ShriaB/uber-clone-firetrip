@@ -23,6 +23,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
   final _formKey = GlobalKey<FormState>();
 
   Future<void> login() async {
+    /// If email and password has valid format
+    /// Prepare the data in a Map
+    /// Pass it to Firebase login
+    /// Display appropriate message for success and failure
+    /// If successful go to home screen
     if (_formKey.currentState!.validate()) {
       Map userInfo = {
         "email": _emailController.text.trim(),
@@ -42,7 +47,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
               context, "Some error occured! Please try after some time");
         }
       });
-    } else {
+    }
+
+    /// If email and password do not match the required format then request to enter again
+    else {
       Utils.showRedSnackBar(context, "Please enter the required data.");
     }
   }
@@ -50,12 +58,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /// ListView to make it scrollable
       body: ListView(children: [
         Image.asset("assets/images/register_login.jpg"),
         Padding(
           padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10, 20.0),
           child: Column(
             children: [
+              /// Heading text
               const Text(
                 "Login",
                 style: TextStyle(
@@ -122,7 +132,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         height: 20.0,
                       ),
 
-                      /// Signup Button
+                      /// Login Button
                       ElevatedButton.icon(
                           style: textButtonStyle,
                           onPressed: () {
@@ -142,6 +152,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         height: 20.0,
                       ),
 
+                      /// If user does not have an account prompt user to register
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

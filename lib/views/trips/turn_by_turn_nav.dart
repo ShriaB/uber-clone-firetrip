@@ -92,6 +92,8 @@ class _SampleNavigationAppState extends ConsumerState<TurnByTurnNav> {
       getWayPoints();
 
       _directions = MapBoxNavigation(onRouteEvent: _onEmbeddedRouteEvent);
+
+      /// Setting the options for mapbox map
       var options = MapBoxOptions(
           initialLatitude: 36.1175275,
           initialLongitude: -115.1839524,
@@ -141,6 +143,7 @@ class _SampleNavigationAppState extends ConsumerState<TurnByTurnNav> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        /// Mapbox Navigation view
         Container(
           color: Colors.grey,
           child: _options != null
@@ -155,6 +158,8 @@ class _SampleNavigationAppState extends ConsumerState<TurnByTurnNav> {
                   })
               : null,
         ),
+
+        /// Arrived at destination button for finishing the ride
         Positioned(
             left: 10,
             right: 10,
@@ -173,6 +178,7 @@ class _SampleNavigationAppState extends ConsumerState<TurnByTurnNav> {
     );
   }
 
+  /// On route event
   Future<void> _onEmbeddedRouteEvent(e) async {
     _distanceRemaining = await _controller!.distanceRemaining;
     _durationRemaining = await _controller!.durationRemaining;

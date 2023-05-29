@@ -24,3 +24,10 @@ String addDurationToCurrentTime(num seconds) {
   var dropTime = DateTime.now().add(Duration(seconds: seconds.ceil()));
   return DateFormat.jm().format(dropTime);
 }
+
+/// Takes a DateTime object
+/// Converts it in the format : year Month date hour:minute
+String? formatDate(DateTime? d) {
+  if (d == null) return null;
+  return ("${DateFormat('y MMM d').format(d)} ${DateFormat.jm().format(d)}");
+}

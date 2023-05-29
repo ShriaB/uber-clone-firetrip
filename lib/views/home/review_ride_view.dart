@@ -34,6 +34,7 @@ class _PreviewRideViewState extends ConsumerState<ReviewRideView> {
 
   bool isRouteLoaded = false;
 
+  /// Initialise [source], [sourceLatLng], [destination], [destinationLatLng] and [_mapController]
   void initialise() {
     viewModel = ref.read(tripStateNotifierProvider);
     if (viewModel.userPickUpLocation != null &&
@@ -53,6 +54,7 @@ class _PreviewRideViewState extends ConsumerState<ReviewRideView> {
     _mapController = MapController();
   }
 
+  /// Gets the route and updates the polyline points, distance and duration
   getRoute() async {
     Map directionRes =
         await getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
@@ -85,6 +87,8 @@ class _PreviewRideViewState extends ConsumerState<ReviewRideView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+        /// BottomSheet displays the source destination and ride details
         bottomSheet: isRouteLoaded
             ? BottomSheetWidget(
                 destination: destination,

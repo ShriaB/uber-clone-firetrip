@@ -21,6 +21,9 @@ class _AllTripsViewState extends ConsumerState<AllTripsView> {
         backgroundColor: primaryColor,
         title: const Text("Your Trips"),
       ),
+
+      /// List of trips
+      /// Each list item is a TripCardWidget
       body: ListView.builder(
           itemCount: TripState.tripCount,
           itemBuilder: (_, index) =>
