@@ -1,16 +1,18 @@
-# firetrip
+# Firetrip
 
-A new Flutter project.
+A front-end application that allows users to choose a pick up location and drop off location, request a ride to travel from source and destination and leverage turn by turn navigation. 
 
-## Getting Started
+## Demonstration
 
-This project is a starting point for a Flutter application.
+https://github.com/ShriaB/uber-clone-firetrip/assets/127374103/a817405a-cfa0-40b1-abcf-78e93c4d8798
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Tools and Technologies
+- Flutter (Front-end)
+- Firebase (Back-end)
+- Mapbox (For location services)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![FireTrip](https://github.com/ShriaB/uber-clone-firetrip/assets/127374103/7bd9bdee-fbd5-4deb-ad18-09f70ef24ef7)
+
+
+
