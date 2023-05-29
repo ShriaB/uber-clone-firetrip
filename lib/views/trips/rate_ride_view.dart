@@ -40,7 +40,7 @@ class _RateRideViewState extends ConsumerState<RateRideView> {
       rideRating: rideRating,
     );
     await TripsService.addTrip(trip);
-    TripStateNotifier.getTrips();
+    TripStateNotifier.addTripToTripList(trip);
     ref.read(tripStateNotifierProvider.notifier).reset();
   }
 

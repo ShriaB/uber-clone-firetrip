@@ -3,7 +3,6 @@ import 'package:firetrip/global/utils/time_distance_convertors.dart';
 import 'package:firetrip/models/trip_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:intl/intl.dart';
 
 class TripCardWidget extends StatefulWidget {
   final TripModel? trip;

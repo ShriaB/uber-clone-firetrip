@@ -59,9 +59,16 @@ class TripStateNotifier extends StateNotifier<TripState> {
   /// Fetched all trips from Firebase
   /// And stored in [allTripInfoList]
   /// Update [tripCount] to the length of list
-  static void getTrips() async {
+  static Future<void> getTrips() async {
     TripState.allTripInfoList = await TripsService.getAllTrips();
     TripState.tripCount = TripState.allTripInfoList.length;
+  }
+
+  /// Add a trip to all trip list
+  /// Increment tripCount
+  static void addTripToTripList(trip) {
+    TripState.allTripInfoList.add(trip);
+    TripState.tripCount++;
   }
 
   /// Reset after a trip is over

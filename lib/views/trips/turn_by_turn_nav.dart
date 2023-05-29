@@ -170,7 +170,8 @@ class _SampleNavigationAppState extends ConsumerState<TurnByTurnNav> {
                 _controller?.finishNavigation();
                 _directions?.finishNavigation();
                 ref.read(tripStateNotifierProvider.notifier).setDropOffTime();
-                Navigator.pushReplacementNamed(context, RouteNames.rateRide);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteNames.rateRide, (route) => false);
               },
               child: const Text("Arrived at destination"),
             ))
