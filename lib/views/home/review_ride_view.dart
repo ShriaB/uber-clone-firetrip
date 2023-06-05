@@ -56,8 +56,9 @@ class _PreviewRideViewState extends ConsumerState<ReviewRideView> {
 
   /// Gets the route and updates the polyline points, distance and duration
   getRoute() async {
-    Map directionRes =
-        await getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
+    Map directionRes = await ref
+        .read(directionServiceProvider)
+        .getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
     _polylinePoints = directionRes['points'];
     _distance = directionRes['distance'];
     _duration = directionRes['duration'];
